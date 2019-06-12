@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script>
+      
+    	// 問題番号
+    	var no = 0;
+    	// 正解数
+    	var score = 0;
+    	// 単語リスト
+    	var wordList = [
+    		{
+    			nazonazo: "お父さんのカエルがケロケロ。お母さんのカエルはケロケロ。では、こどもはなんと鳴く？",
+    			answer: "鳴かない"
+    		},
+    		{
+    			nazonazo: "どんな時でも必ずやってくるけど絶対にたどり着けないものってなに？",
+    			answer: "明日"
+    		},
+    		{
+    			nazonazo: "金曜日が木曜日より先にくるのはどこでしょう？",
+    			answer: "辞書の中"
+          
+    		},
+    		{
+    			nazonazo: "1人では持て余しますが、2人では十分、3人ではダメになるものってなんだ？",
+    			answer: "秘密"
+    		},
+    		{
+    			nazonazo: "君は家を飛び出して、3回左折して家に帰ってきた。そこにはマスクをかぶった2人の男が君を待っている。君の職業はなに？",
+    			answer: "野球選手"
+    		}
+    	];
+    	
+    	// 問題を表示する
+    	function showQuestion() {
+        
+        if(no<wordList.length){
+          //次の問題があれば表示する
+          document.getElementById("question").innerHTML=wordList[no].nazonazo;
+         
+        }else{
+          //全問終了したら、成績を発表する
+          document.getElementById("question").innerHTML=score+"/"+wordList.length;
+          document.getElementById("answerForm").style.display="none";
+          if(score==wordList.length){
+            //全問正解の場合
+            document.getElementById("resultMessage").innerHTML="全問正解!!";
+            document.getElementById("resultImage").src="yoi.png";
+          }else if(score>=wordList.length*0.6){
+            //6割以上正解の場合
+            document.getElementById("resultMessage").innerHTML="惜しい!!あとちょっと!";
+            document.getElementById("resultImage").src="hutu.png";
+          }else{
+            //6割未満の場合
+            document.getElementById("resultMessage").innerHTML="もう1回挑戦してみよう!!";
+            document.getElementById("resultImage").src="warui.png";
+          }
+        }
+    	}
+    	
+    	// 入力された回答の正誤判定を行う
+    	function judge() {
+        var answer=document.getElementById("answer").value;
+        if(answer==wordList[no].answer){
+          alert("正解!!");
+          score++;
+        }else{
+          alert("ざんねん!!不正解...");
+        }
+
+        //次の問題表示
+        no++;
+        showQuestion();
+        var answer=document.getElementById("answer").value="";
+    	}
+    var start = new Date();
+// setInterval
+
+  var PassSec;   // 秒数カウント用変数
+ 
+// 繰り返し処理の中身
+function showPassage() {
+   PassSec--;   // カウントダウン
+   var msg = "残り " + PassSec + "秒";   // 表示文作成
+   document.getElementById("PassageArea").innerHTML = msg;   // 表示更新
+}
+// 繰り返し処理の開始
+function startShowing() {
+   PassSec = 240;   // カウンタのリセット
+   PassageID = setInterval('showPassage()',1000);   // タイマーをセット(1000ms間隔)
+   document.getElementById("startcount").disabled = true;   // 開始ボタンの無効化
+}
+    </script>
+</head>
+
+<body onload="showQuestion()">
+	<h1 id="title">なぞなぞ</h1>
+  <p>
+   <input type="button" value="スタート" id="startcount" onclick="startShowing();">
+  </p>
+  <p id="PassageArea"><!--ここにカウントが表示されます--></p>
+  
+	<div id="question"></div>
+	<div id="answerForm">
+		<input type="text" id="answer" placeholder="答え">
+		<button onclick="judge()">OK</button>
+    <img src="maru.png" alt="正解" title="正解">
+	</div>   
+</div>
+
+</body>
+<img id="meru" src="">
+	<p id="resultMessage"></p>
+	<img id="resultImage" src="">
+</body>
+</html>

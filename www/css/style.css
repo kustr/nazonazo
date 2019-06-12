@@ -1,0 +1,24 @@
+body {
+  background-color: #FFA500;
+	text-align: center;	
+}
+h1 {
+	color: #ffff;
+}
+#question {
+	width: 100%;
+	margin: 40px 0;
+	font-size: 25px;
+  color: #ffff;
+  
+}
+#answerForm {
+	font-size: 50px;
+}
+#answer {
+	width: 60%;
+}
+#think{
+  width:60%;
+  margin: 40px 0;
+}
